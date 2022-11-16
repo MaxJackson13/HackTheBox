@@ -1,0 +1,1 @@
+In scrambled we're faced with attacking a domain controller with NTLM authentication disabled, so no pass the hashes or responder to be seen here. We'll enumerate a website which leaks a username, domain name and hints at accounts being reset with the same password as their username.
