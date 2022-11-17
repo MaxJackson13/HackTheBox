@@ -124,7 +124,7 @@ First I'll enumerate the database:
 
 <img src="Images/sysdatabases.png" width=400>
 <img src="Images/tables.png" width=400>
-<img src="Images/miscsvc.png" width=400>
+<img src="Images/miscsvc.png" width=550>
 
 We find an account `MiscSvc` with password `ScrambledEggs9900`
 
