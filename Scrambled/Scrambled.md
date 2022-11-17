@@ -123,9 +123,13 @@ I'll run
 First I'll enumerate the database:
 
 <img src="Images/sysdatabases.png" width=700>
-<img src="Images/tables.png" width=700>
-<img src="Images/miscsvc.png" width=700>
+<img src="Images/tables.png" width=400>
+<img src="Images/miscsvc.png" width=400>
+
+We find an account `MiscSvc` with password `ScrambledEggs9900`
 
 Next I'll run `enable_xp_cmdshell` followed by `xp_cmdshell {whoami /priv}` to enumerate my privileges
 
-<img src="Images/priv.png" width=700>
+<img src="Images/priv.png" width=400>
+
+I notice the MSSQLSvc user has the `SeImpersonatePrivilege` which is typical of a lot of service accounts and is a very dangerous (useful1) privilege to have for escalation of privileges
