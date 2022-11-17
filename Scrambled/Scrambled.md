@@ -113,7 +113,9 @@ Initial Access
 
 Now we can authenticate to the SQL server as the administrator which should let us do some interesting stuff. Impacket has a script `mssqlclient.py` which will let us authenticate to the service using our forged ticket. 
 
-On Linux, kerberos looks for tickets in pre-defined locations, one being the environment variable `KRB5CCNAME` so I'll need to export the ticket to this environment variable so I'll run 
-`export KRB5CCNAME=~/administrator.ccache`
-then the command 
-`mssqlclient.py -k scrm.local/admnistrator@dc1.scrm.local -no-pass` to enter a session on the SQL server
+On Linux, kerberos looks for tickets in pre-defined locations, one being the environment variable `KRB5CCNAME` so I'll need to export the ticket to this environment variable.
+I'll run 
+1. `export KRB5CCNAME=~/administrator.ccache`
+2. `mssqlclient.py -k scrm.local/admnistrator@dc1.scrm.local -no-pass` to enter a session on the SQL server
+
+<img src="Images/mssqlient.png" width=400>
