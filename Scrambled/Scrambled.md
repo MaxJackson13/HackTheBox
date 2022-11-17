@@ -155,6 +155,10 @@ On the webserver I get a hit
 
 <img src="Images/server.png" width=400>
 
-which returns the result of `whoami` as `scrm`miscsvc`
+which returns the result of `whoami` as `scrm\miscsvc`
 
 <img src="Images/command.png" width=600>
+
+From here I can get the user flag by changing `whoami` to `cat c:\users\miscsvc\desktop\user.txt` in the scriptblock:
+
+<img src="Images/user.png" width=500>
