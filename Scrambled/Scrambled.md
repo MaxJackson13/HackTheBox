@@ -1,3 +1,9 @@
+Scrambled
+========
+
+External Enumeration
+--------------------
+
 We'll first run a portscan against the target 10.10.11.168, here I'm using my bash alias `fscan`
 
 `fscan 10.10.11.168`
@@ -90,3 +96,10 @@ We get a domain SID of
 
 <img src="Images/sid.png" width=400>
 
+Now we can use impacket's `ticketer.py` to forge our TGS, identifying ourselves as the administrator to the MSSQL service
+
+<img src="Images/sid.png" width=400>
+
+This saves the ticket into `administrator.ccache`
+From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>, 
+'A credential cache (or “ccache”) holds Kerberos credentials while they remain valid and, generally, while the user’s session lasts, so that authenticating to a service multiple times (e.g., connecting to a web or mail server more than once) doesn’t require contacting the KDC every time.'
