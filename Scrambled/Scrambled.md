@@ -136,7 +136,7 @@ I notice the sqlsvc user has the `SeImpersonatePrivilege` which is typical of a 
 
 First though I'll see what I can do with the `miscsvc` account
 
-To do this I'll locally host a `.ps1` script on a python webserver containing the commands I want execute, then retrieve and execute this script from the MSSQL cmdshell. 
+To do this I'll locally host a `.ps1` script on a python webserver containing the commands I want execute, then retrieve and execute this script from the MSSQL shell. 
 
 My `.ps1` script will look like
 ```
@@ -147,3 +147,8 @@ $Credential = New-Object System.Management.Automation.PSCredential($User,$Secure
 Invoke-Command -Computername DC1 -Credential $Credential -Scriptblock { whoami }
 ```
 replacing `whoami` with whatever command I want to execute as `miscsvc`
+
+From the MSSQL:
+<img src="Images/command.png" width=400>
+and on the webserver I get a hit
+<img src="Images/server.png" width=400>
