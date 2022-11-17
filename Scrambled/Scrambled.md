@@ -5,6 +5,7 @@ We'll first run a portscan against the target 10.10.11.168, here I'm using my ba
 <img src="Images/Ports.png" width=600>
 
 We see all the typical open ports of a domain controller and the nmap scan reveal the FQDN of the domain controller: **dc1.scrm.local**
+I'll add **scrm.local** and **dc1.scrm.local** to my `/etc/hosts` file
 
 Usually I'd start with quickly checking for unauthenticated access to SMB or RPC using 
 ```
