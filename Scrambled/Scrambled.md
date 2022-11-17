@@ -38,9 +38,11 @@ From here we can do two things:
 
 I'll use `kerbrute` for the former and impacket's `smbclient.py` for the latter.
 
-Kerbrute's userenum works by sending a request for a TGT, and if **UF_DONT_REQUIRE_PREAUTH** is not set for this user the DC will respond with either
+Kerbrute's userenum works by sending a request for a TGT, and if **UF_DONT_REQUIRE_PREAUTH** is not set for this user (which it usually isn't) the DC will respond with either
+
 1. A PRINCIPAL UNKNOWN error and the username does not exist
 2. Or the DC will prompt for pre-authentication, in which case the user exists in the domain
 
 The command line for this looks like 
+<img src="Images/Kerbrute.png" width=600>
 
