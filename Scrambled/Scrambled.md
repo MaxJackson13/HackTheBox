@@ -118,4 +118,4 @@ I'll run
 1. `export KRB5CCNAME=~/administrator.ccache`
 2. `mssqlclient.py -k scrm.local/admnistrator@dc1.scrm.local -no-pass` to enter a session on the SQL server
 
-<img src="Images/mssqlclient.png" width=400>
+<img src="Images/mssqlclient.png" width=700>
