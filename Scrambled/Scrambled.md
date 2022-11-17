@@ -36,3 +36,11 @@ From here we can do two things:
 1. Use kerbrute to verify that ksimpson is in fact a domain user
 2. Authenticate using kerberos to see if I can access any shares over SMB using the credentials ksimpson:ksimpson
 
+I'll use `kerbrute` for the former and impacket's `smbclient.py` for the latter.
+
+Kerbrute's userenum works by sending a request for a TGT, and if **UF_DONT_REQUIRE_PREAUTH** is not set for this user the DC will respond with either
+1. A PRINCIPAL UNKNOWN error and the username does not exist
+2. Or the DC will prompt for pre-authentication, in which case the user exists in the domain
+
+The command line for this looks like 
+
