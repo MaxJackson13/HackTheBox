@@ -149,6 +149,8 @@ Invoke-Command -Computername DC1 -Credential $Credential -Scriptblock { whoami }
 replacing `whoami` with whatever command I want to execute as `miscsvc`
 
 From the MSSQL:
-<img src="Images/command.png" width=400>
+<img src="Images/command.png" width=600>
+
 and on the webserver I get a hit
+
 <img src="Images/server.png" width=400>
