@@ -5,6 +5,7 @@ We'll first run a portscan against the target 10.10.11.168, here I'm using my ba
 <img src="Images/Ports.png" width=600>
 
 We see all the typical open ports of a domain controller and the nmap scan reveal the FQDN of the domain controller: **dc1.scrm.local**
+
 I'll add **scrm.local** and **dc1.scrm.local** to my `/etc/hosts` file
 
 Usually I'd start with quickly checking for unauthenticated access to SMB or RPC using 
@@ -14,7 +15,7 @@ crackmapexec smb 10.10.11.168 -u '' -p ''
 smbmap -H 10.10.11.168
 rpcclient 10.10.11.168 -N
 ```
-but all receieve <b>NT_STATUS_NOT_SUPPORTED</b> errors, the reason for we we discover upon navigating to the website
+but all receieve <b>NT_STATUS_NOT_SUPPORTED</b> errors, the reason for which we discover upon navigating to the website
 
 <img src="Images/NTLM.png" width=600>
 
@@ -29,3 +30,9 @@ Exploring the page further reveals a further two items of interest:
 - Passwords are being reset as the username of the account
 
 <img src="Images/PasswordReset.png" width=600>
+
+From here we can do two things:
+
+1. Use kerbrute to verify that ksimpson is in fact a domain user
+2. Authenticate using kerberos to see if I can access any shares over SMB using the credentials ksimpson:ksimpson
+
