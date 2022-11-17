@@ -17,3 +17,4 @@ but all receieve <b>NT_STATUS_NOT_SUPPORTED</b> errors the reason for we we disc
 
 <img src="Images/NTLM.png" width=600>
 
+It appears NTLM/ authentication has been disabled across the domain, so any authentications will have to use Kerberos.
