@@ -47,3 +47,9 @@ The command line for this looks like
 
 <img src="Images/Kerbrute.png" width=600>
 
+and we see **ksimpson** is a valid username
+
+Next we check `smb`
+
+<img src="Images/smbclient.png" width=600>
+
