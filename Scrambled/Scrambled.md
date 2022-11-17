@@ -63,6 +63,9 @@ Enumerating all the shares we find we only have access to the `Public` share whi
 
 <img src="Images/pdf.png" width=600>
 
+Kerberoasting & silver Ticket Attack
+------------------------------------
+
 The pdf points to a SQL Service active in the domain. A common attack vector regarding services in active directory is **kerberoasting**, and the tool of choice for this is impacket's `GetSPNUser.py`. The way this works is that each instance of a service in active directory has to be tied to a unique logon account through a **Service Principal Name** (SPN), so an SPN is just an account<--->service mapping. Since the KDC doesn't verify if we have sufficient privilege to access the service (it's left up to the service to do this), we can request a TGS from the KDC for any and every service. The server portion of the TGS is encrypted with a key derived from the password hash of the user account tied to the service in the SPN, so we can offline brute force the password for the account by guessing a password, hashing it and seeing if it will correctly decrypt the server portion of the TGS.
 
 Running the command returns a response for the MSSQLSvc user
@@ -101,5 +104,9 @@ Now we can use impacket's `ticketer.py` to forge our TGS, identifying ourselves 
 <img src="Images/sid.png" width=400>
 
 This saves the ticket into `administrator.ccache`
-From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>, 
+From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>
+
 'A credential cache (or “ccache”) holds Kerberos credentials while they remain valid and, generally, while the user’s session lasts, so that authenticating to a service multiple times (e.g., connecting to a web or mail server more than once) doesn’t require contacting the KDC every time.'
+
+Initial Access
+--------------
