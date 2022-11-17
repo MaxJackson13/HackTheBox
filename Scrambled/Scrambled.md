@@ -63,4 +63,5 @@ Running the command returns a response for the MSSQLSvc user
 
 <img src="Images/GetUserSPN.png" width=600>
 
+Saving the blob into a file `hash` and using my alias `j hash` we find the credentials **MSSQLSvc:Pegasus60**
 <img src="Images/John.png" width=600>
