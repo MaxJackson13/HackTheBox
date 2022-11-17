@@ -66,3 +66,27 @@ Running the command returns a response for the MSSQLSvc user
 Saving the blob into a file `hash` and using my alias `j hash` we find the credentials **MSSQLSvc:Pegasus60**
 
 <img src="Images/john.png" width=600>
+
+Though the PAC in the server portion of the TGS is signed using the KDC long-term secret AND the target service long-term secret, a TGS is rarely passed off to the KDC for PAC validation. As a result, since we have the MSSQLSvc password, we can forge our own TGS for the service. This is known as a silver ticket attack.
+
+We need three things to do this:
+1. The domain SID
+2. The NT hash of the password for the service account
+3. The SPN
+
+For the NT hash we can do 
+`iconv -f ASCII -t UTF-16LE <(printf "Pegasus60") | openssl dgst -md4`
+which returns **b999a16500b87d17ec7f2e2a68778f05**
+
+We have the SPN already which is **MSSQLSvc/dc1.scrm.local**
+
+And to get the domain SID, impacket has a script `GetPAC.py` which retrieves the PAC of any user in the domain and the PAC contains the SID of that user, so stripping of that user's RID we have the domain SID.
+
+Running this script targeting the administrator (which always has RID 500) 
+
+<img src="Images/getpac.png" width=600>
+
+We get a domain SID of 
+
+<img src="Images/sid.png" width=600>
+
