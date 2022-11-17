@@ -44,5 +44,6 @@ Kerbrute's userenum works by sending a request for a TGT, and if **UF_DONT_REQUI
 2. Or the DC will prompt for pre-authentication, in which case the user exists in the domain
 
 The command line for this looks like 
+
 <img src="Images/Kerbrute.png" width=600>
 
