@@ -101,7 +101,7 @@ We get a domain SID of
 
 Now we can use impacket's `ticketer.py` to forge our TGS, identifying ourselves as the administrator to the MSSQL service
 
-<img src="Images/sid.png" width=400>
+<img src="Images/silverticket.png" width=400>
 
 This saves the ticket into `administrator.ccache`
 From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>
@@ -110,3 +110,10 @@ From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>
 
 Initial Access
 --------------
+
+Now we can authenticate to the SQL server as the administrator which should let us do some interesting stuff. Impacket has a script `mssqlclient.py` which will let us authenticate to the service using our forged ticket. 
+
+On Linux, kerberos looks for tickets in pre-defined locations, one being the environment variable `KRB5CCNAME` so I'll need to export the ticket to this environment variable so I'll run 
+`export KRB5CCNAME=~/administrator.ccache`
+then the command 
+`mssqlclient.py -k scrm.local/admnistrator@dc1.scrm.local -no-pass` to enter a session on the SQL server
