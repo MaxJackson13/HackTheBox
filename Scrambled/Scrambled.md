@@ -49,7 +49,10 @@ The command line for this looks like
 
 and we see **ksimpson** is a valid username
 
-Next we check `smb`
+Next we check `smb` using the `-k` flag to enforce kerberos authentication
 
 <img src="Images/smbclient.png" width=600>
 
+Enumerating all the shares we find we only have access to the `Public` share which contains a single file **Network Security Changes.pdf
+
+<img src="Images/pdf.png" width=600>
