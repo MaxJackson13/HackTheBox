@@ -119,3 +119,13 @@ I'll run
 2. `mssqlclient.py -k scrm.local/admnistrator@dc1.scrm.local -no-pass` to enter a session on the SQL server
 
 <img src="Images/mssqlclient.png" width=700>
+
+First I'll enumerate the database:
+
+<img src="Images/sysdatabases.png" width=700>
+<img src="Images/tables.png" width=700>
+<img src="Images/miscsvc.png" width=700>
+
+Next I'll run `enable_xp_cmdshell` followed by `xp_cmdshell {whoami /priv}` to enumerate my privileges
+
+<img src="Images/priv.png" width=700>
