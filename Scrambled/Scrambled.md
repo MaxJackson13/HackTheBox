@@ -88,5 +88,5 @@ Running this script targeting the administrator (which always has RID 500)
 
 We get a domain SID of 
 
-<img src="Images/sid.png" width=600>
+<img src="Images/sid.png" width=400>
 
