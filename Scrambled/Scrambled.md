@@ -97,11 +97,11 @@ Running this script targeting the administrator (which always has RID 500)
 
 We get a domain SID of 
 
-<img src="Images/sid.png" width=600>
+<img src="Images/sid.png" width=400>
 
 Now we can use impacket's `ticketer.py` to forge our TGS, identifying ourselves as the administrator to the MSSQL service
 
-<img src="Images/silverticket.png" width=400>
+<img src="Images/silverticket.png" width=650>
 
 This saves the ticket into `administrator.ccache`
 From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>
