@@ -22,9 +22,9 @@ so my injection malforms the query into
 
 `select * from users where username=admin` 
 
-which authenticates me as the admin user.
+which authenticates me as the admin user. I'll come back and examine the injection further if need be.
 
-I get redirected to a `/dashboard`
+I get redirected to `/dashboard`
 
 <img src='Images/dashboard.png'>
 
