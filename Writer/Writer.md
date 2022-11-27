@@ -19,7 +19,9 @@ I'll test for SQL injection with the payload `admin'-- -`. This logs me in. I su
 `select * from users where username={username} and password=md5({password})`
 
 so my injection malforms the query into
+
 `select * from users where username=admin` 
+
 which authenticates me as the user admin.
 
 <img src='Images/script.png'>
