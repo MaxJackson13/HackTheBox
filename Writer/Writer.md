@@ -10,7 +10,7 @@ I don't have any access here. I'll revisit if I find some credentials.
 
 <img src='Images/gobuster.png'>
 
-Gobuster finds a directory called `administrative`. It leads to a login page 
+Gobuster finds a directory called `administrative`. It leads to a login page:
 
 <img src='Images/administrative.png'>
 
@@ -22,6 +22,11 @@ so my injection malforms the query into
 
 `select * from users where username=admin` 
 
-which authenticates me as the user admin.
+which authenticates me as the admin user.
+
+I get redirected to a `/dashboard`
+
+<img src='Images/dashboard.png'>
+
 
 <img src='Images/script.png'>
