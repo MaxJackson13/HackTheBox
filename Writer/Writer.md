@@ -76,5 +76,16 @@ From `/etc/passwd` I saw the user `kyle`. I'll try the credentials `kyle:ToughPa
 
 <img src='Images/authsmbmap.png'>
 
-The credentials work and grant me read/write access to the `writer2_project` share. I'll use `smbclient //10.10.11.101/writer2_project -u kyle -p ToughPasswordToCrack` to access the share.
+The credentials work and grant me read/write access to the `writer2_project` share. I'll use `smbclient //10.10.11.101/writer2_project -u kyle -p ToughPasswordToCrack` to access the share. This is interesting as I could write a payload into the share and if I can cause it to execute on the server I'll have RCE. Listing the contents of the share shows 
 
+<img src='Images/writer_proj.png'>
+
+`writer_web/urls.py` contains
+```
+from django.conf.urls import url
+from writer_web import views
+
+urlpatterns = [
+    url(r'^$', views.home_page, name='home'),
+]
+```
