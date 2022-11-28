@@ -81,6 +81,7 @@ The credentials work and grant me read/write access to the `writer2_project` sha
 <img src='Images/writer_proj.png'>
 
 `writer_web/urls.py` contains
+
 ```
 from django.conf.urls import url
 from writer_web import views
@@ -88,4 +89,15 @@ from writer_web import views
 urlpatterns = [
     url(r'^$', views.home_page, name='home'),
 ]
+```
+
+this file imports `view.py` which contains
+
+```
+from django.shortcuts import render
+from django.views.generic import TemplateView
+
+def home_page(request):
+    template_name = "index.html"
+    return render(request,template_name)
 ```
