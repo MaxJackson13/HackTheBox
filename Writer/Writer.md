@@ -28,5 +28,7 @@ I get redirected to `/dashboard`
 
 <img src='Images/dashboard.png'>
 
+<img src='Images/stories.png'>
+
 
 <img src='Images/script.png'>
