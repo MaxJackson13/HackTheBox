@@ -24,14 +24,24 @@ so my injection malforms the query into
 
 which authenticates me as the admin user. I'll come back and examine the injection further if need be.
 
-I get redirected to `/dashboard`
+I get redirected to `/dashboard`.
 
 <img src='Images/dashboard.png'>
 
-clicking around I find a `/stories` directory which has the option to upload 
+clicking around I find a `/stories` directory.
 
 <img src='Images/stories.png'>
 
+It has the option to upload a `.jpg` file from the local computer or to upload a file from a url. 
+
 <img src='Images/storiesadd.png'>
+
+I'll upload a `jpg` and intercept the request in burpsuite. I'll append `.php` to the filename, change the mimetype to `application/x-php` and append a simple command injection payload after the magic bytes.
+
+<img src='Images/bug.png'>
+
+<img src='Images/bugmodified.png'>
+
+<img src='Images/staticimg.png'>
 
 <img src='Images/script.png'>
