@@ -56,7 +56,7 @@ Next I'll try changing the 2 for `LOAD_FILE('/etc/passwd')` and I see the conten
 
 <img src='Images/loadfile.png'>
 
-I'll create a quick python script to send the payload to the login page, parse out the file contents and save the file. I'll use mysql's `TO_BASE64()` function to return the base64 encoded file to avoid HTML entity encoding in the response HTML.
+I'll create a quick python script to send the injection payload including the specified file as the first argument of the script to the login page, parse out the file contents and save the file. I'll use mysql's `TO_BASE64()` function to return the base64 encoded file to avoid HTML entity encoding in the response HTML.
 
 <img src='Images/script.png'>
 
@@ -76,5 +76,5 @@ From `/etc/passwd` I saw the user `kyle`. I'll try the credentials `kyle:ToughPa
 
 <img src='Images/authsmbmap.png'>
 
-The credentials work and grant me read/write access to the `writer2_project` share.
+The credentials work and grant me read/write access to the `writer2_project` share. I'll use `smbclient //10.10.11.101/writer2_project -u kyle -p ToughPasswordToCrack` to access the share.
 
