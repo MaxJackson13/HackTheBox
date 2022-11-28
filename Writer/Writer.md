@@ -64,7 +64,7 @@ I'll check the website configuration by including the file `/etc/apache2/sites-e
 
 <img src='Images/sites-enabled.png'>
 
-It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out. It also points to a development site on port `8000` only accessible through localhost. If a can find an SSRF I could interact with this site.
+It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out. It also points to a development site on port `8080` only accessible through localhost. If a can find an SSRF I could interact with this site.
 
 <img src='Images/wsgi.png'>
 
