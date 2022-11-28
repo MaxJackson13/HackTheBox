@@ -91,7 +91,7 @@ urlpatterns = [
 ]
 ```
 
-this file imports `view.py` which contains
+This says any URI will redirect to `/home` and load `views.home_page`. This file imports `view.py` which contains the `home_page` function
 
 ```
 from django.shortcuts import render
@@ -101,3 +101,5 @@ def home_page(request):
     template_name = "index.html"
     return render(request,template_name)
 ```
+
+so I can write a reverse shell into the `home_page` function and it will execute when I load any page on the site. Since 
