@@ -28,7 +28,10 @@ I get redirected to `/dashboard`
 
 <img src='Images/dashboard.png'>
 
+clicking around I find a `/stories` directory which has the option to upload 
+
 <img src='Images/stories.png'>
 
+<img src='Images/storiesadd.png'>
 
 <img src='Images/script.png'>
