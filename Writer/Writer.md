@@ -117,4 +117,4 @@ def home_page(request):
     return render(request,template_name)
 ```
 
-I'll upload this to the share.
+I'll upload this to the share with `smb: \writer_web\> put view.py`
