@@ -118,4 +118,20 @@ def home_page(request):
 ```
 
 I'll upload this to the share with 
+
 `smb: \writer_web\> put views.py`
+
+and start a listener on port `9001`
+
+<img src='Images/authsmbmap.png'>
+
+on `/stories/add` I'll upload a file from url. I just put `http://google.com` as there's some client side filtering, but I'll intercept the request in burpsuite and modify the url there. I know from the source code the filename/url must contain `.jpg` so I'll put the `image_url` as `http://127.0.01:8080/?.jpg`
+
+<img src='Images/ssrf.png'>
+
+and on my listener I get a connection as `www-data`
+
+<img src='Images/rev.png'>
+
+
+
