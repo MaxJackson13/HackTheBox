@@ -38,10 +38,17 @@ It has the option to upload a `.jpg` file from the local computer or to upload a
 
 I'll upload a `jpg` and intercept the request in burpsuite. I'll append `.php` to the filename, change the mimetype to `application/x-php` and append a simple command injection payload after the magic bytes.
 
-<img src='Images/bug.png'>
-
 <img src='Images/bugmodified.png'>
 
+I can see the file has sucessfuly upload to the `/static/img` folder. 
+
 <img src='Images/staticimg.png'>
+
+Visiting the url `static/img/bug.jpg.php?cmd=id` returns an error however. It seems the webpage isn't configured to execute `php` despite the extension.
+
+<img src='Images/fail.png'>
+
+I'll revisit the sql injection to see what I can do here.
+
 
 <img src='Images/script.png'>
