@@ -52,7 +52,7 @@ I'll revisit the sql injection to see what I can do here. I know the username pa
 
 <img src='Images/union.png'>
 
-Next I'll try changing the 2 for `LOAD_FILE('/etc/passwd') and I see the contents of `/etc/passwd` are returned so I have LFI.
+Next I'll try changing the 2 for `LOAD_FILE('/etc/passwd')` and I see the contents of `/etc/passwd` are returned so I have LFI.
 
 <img src='Images/loadfile.png'>
 
@@ -64,10 +64,17 @@ I'll check the website configuration by including the file `/etc/apache2/sites-e
 
 <img src='Images/sites-enabled.png'>
 
-It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out
+It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out. It also points to a development site on port `8000` only accessible through localhost. If a can find an SSRF I could interact with this site.
 
 <img src='Images/wsgi.png'>
 
 There's a comment about an `__init__.py` file which I'll read next. The exact location of the file is a bit ambiguous as `from writer import...` could mean a file `writer.py` or a parent directory `/writer`, but trying the path `/var/www/writer.htb/__init__.py` works. This file leaks some credentials:
 
 <img src='Images/__init__.png'>
+
+From `/etc/passwd` I saw the user `kyle`. I'll try the credentials `kyle:ToughPasswordToCrack` against smb.
+
+<img src='Images/authsmbmap.png'>
+
+The credentials work and grant me read/write access to the `writer2_project` share.
+
