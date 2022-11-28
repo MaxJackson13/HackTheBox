@@ -56,5 +56,18 @@ Next I'll try changing the 2 for `LOAD_FILE('/etc/passwd') and I see the content
 
 <img src='Images/loadfile.png'>
 
+I'll create a quick python script to send the payload to the login page, parse out the file contents and save the file. I'll use mysql's `TO_BASE64()` function to return the base64 encoded file to avoid HTML entity encoding in the response HTML.
 
 <img src='Images/script.png'>
+
+I'll check the website configuration by including the file `/etc/apache2/sites-enabled/000-default.conf`
+
+<img src='Images/sites-enabled.png'>
+
+It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out
+
+<img src='Images/wsgi.png'>
+
+There's a comment about an `__init__.py` file which I'll read next. The exact location of the file is a bit ambiguous as `from writer import...` could mean a file `writer.py` or a parent directory `/writer`, but trying the path `/var/www/writer.htb/__init__.py` works. This file leaks some credentials:
+
+<img src='Images/__init__.png'>
