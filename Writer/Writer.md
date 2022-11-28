@@ -48,7 +48,13 @@ Visiting the url `static/img/bug.jpg.php?cmd=id` returns an error however. It se
 
 <img src='Images/fail.png'>
 
-I'll revisit the sql injection to see what I can do here.
+I'll revisit the sql injection to see what I can do here. I know the username parameter is injectable. I'll try the payload `test' union select 1,2,3,4,5,6` for the username and a random password. Intercepting the response in burpsuite I see `2` gets reflected back onto the webpage as `welcome 2`
+
+<img src='Images/union.png'>
+
+Next I'll try changing the 2 for `LOAD_FILE('/etc/passwd') and I see the contents of `/etc/passwd` are returned so I have LFI.
+
+<img src='Images/loadfile.png'>
 
 
 <img src='Images/script.png'>
