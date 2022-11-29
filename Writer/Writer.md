@@ -153,6 +153,9 @@ Next I'll create a file in `/home/kyle` containing the commands to send an email
 
 <img src='Images/mail.png'>
 
+now I can ssh in as john.
+
+<img src='Images/johnssh.png'>
 
 
 
