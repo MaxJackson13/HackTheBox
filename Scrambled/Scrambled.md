@@ -71,7 +71,7 @@ Enumerating all the shares we find we only have access to the `Public` share whi
 
 <img src="Images/pdf.png" width=600>
 
-## Kerberoasting & Silver Ticket Attack
+## Kerberoasting and Silver Ticket Attack
 
 The pdf points to a SQL Service active in the domain. A common attack vector regarding services in active directory is **kerberoasting**, and the tool of choice for this is impacket's `GetSPNUser.py`. The way this works is that each instance of a service in active directory has to be tied to a unique logon account through a **Service Principal Name** (SPN), so an SPN is just an account<--->service mapping. Since the KDC doesn't verify if we have sufficient privilege to access the service (it's left up to the service to do this), we can request a TGS from the KDC for any and every service. The server portion of the TGS is encrypted with a key derived from the password hash of the user account tied to the service in the SPN, so we can offline brute force the password for the account by guessing a password, hashing it and seeing if it will correctly decrypt the server portion of the TGS.
 
