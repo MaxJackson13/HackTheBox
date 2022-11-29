@@ -1,5 +1,5 @@
 # Summary
-Writer was a nice medium box which had a fair few steps to it. The inital foothold required chaining a SQL injection read source code with an SSRF against a development site on localhost 8080. There were three privilege escalations where it was clear early on what you had to do for each but the execution required some googling around, reading `man` pages and some failed attempts.
+Writer was a nice medium box which had a fair few steps to it. The inital foothold required chaining an SQL injection to read source code with an SSRF against a development site on localhost 8080. There were three privilege escalations where it was clear early on what you had to do for each but the execution required some googling around, reading `man` pages and some failed attempts.
 
 <details open>
 <summary> </summary>
