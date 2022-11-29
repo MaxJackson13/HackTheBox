@@ -131,5 +131,15 @@ and on my listener I get a connection as `www-data`
 
 <img src='Images/rev.png'>
 
+In the current directory there's a file called `manage.py`. This file is automatically created in Django projects and is Django’s command-line utility for administrative tasks. Reading the documentation <a href="https://docs.djangoproject.com/en/4.1/ref/django-admin/#shell">here</a> shows you cann interact with the projects databases using the `dbshell` argument.
+
+<img src='Images/dbshell.png'>
+
+In the `auth_user` table we see a django password hash for kyle. Copying this to a file `hash` and running my alias `j hash`, it cracks as `marcoantonio`. This allows us to `su` to kyle.
+
+<img src='Images/sukyle.png'>
+
+We can see kyle is in the `filter` group
+
 
 
