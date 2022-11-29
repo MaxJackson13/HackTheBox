@@ -6,7 +6,7 @@ Writer was a nice medium box which had a fair few steps to it. The inital footho
 
 * [Enumeration](#enumeration)
 * [SQL Injection](#sql-injection)
-* [Shell as www-data](#shell as www-data)
+* [Shell as www-data](#shell-as-www-data)
 * [Shell as kyle](#privilege-escalation-to-kyle)
 * [Shell as john](#privilege-escalation-to-john)
 * [Shell as root](#privilege-escalation-to-root)
