@@ -141,9 +141,9 @@ In the `auth_user` table we see a django password hash for kyle. Copying this to
 
 We can see kyle is in the `filter` group.
 
-<img src='Images/postfixdisclaimer.png'>
-
 I'll use find to see what files the `filter` group owns.
+
+<img src='Images/postfixdisclaimer.png'>
 
 `/var/spool/filter` is empty, but we can write to `/etc/postfix/disclaimer`. Postfix is a mail transfer agent we can use to send mail. `/etc/postfix/master.cf` what scripts run when a user receives mail among other things. The last line of `master.cf` shows that `/etc/postfix/disclaimer` runs as john when a user receives mail. And since I can write to `/etc/postfix/disclaimer` I'll include a payload, send mail to a user on the box, and my payload should run as john. I'll add my ssh public key to john's authorized keys by adding the following line to `/etc/postfix/disclaimer`:
 
