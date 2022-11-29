@@ -1,5 +1,7 @@
 # Scrambled
 
+Scrambled was a medium Windows box which uniquely had NTLM authentication disabled throughout the domain, so all authentications had to be done via kerberos. Enumeration involved a website leaking some information about a user and how passwords were rest. From here I can access a share to read a pdf file. I'll kerberoast the MSSQL service to obtain the password to logon to the MSSQL instance. With this password I can create a silver ticket to allow me admin level access to the MSSQL instance. I'll enumerate the database to get a password for `miscsvc` who holds the user flag. I can also execute commands through MSSQL's built-in `xp_cmdshell` functionality. I'll use this to return  me a reverse shell as the `sqlsvc` user who has the `SeImpersonatePrivilege`. With this I can use JuicyPotatoNG.exe to get a system shell.
+
 <details open>
 <summary></summary>
   
