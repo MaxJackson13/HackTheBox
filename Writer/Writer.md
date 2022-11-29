@@ -1,3 +1,6 @@
+Writer was a fun box which had a fair few steps to it. The inital foothold required chaining a SQL injection read source code with an SSRF against a development site on localhost 8080. There were three privilege escalations where it was clear early on what you had to do for each but the execution required some googling around, reading `man` pages and some failed attempts.
+
+## Enumeration
 I'll start with a port scan using my alias `fscan` which launches a default script and version scan against the ports found from a full port scan.
 
 <img src='Images/fscan.png'>
@@ -10,7 +13,9 @@ I don't have any access here. I'll revisit if I find some credentials.
 
 <img src='Images/gobuster.png'>
 
-Gobuster finds a directory called `administrative`. It leads to a login page:
+Gobuster finds a directory called `administrative` which leads to a login page
+
+## SQL Injection
 
 <img src='Images/administrative.png'>
 
@@ -131,6 +136,8 @@ and on my listener I get a connection as `www-data`
 
 <img src='Images/rev.png'>
 
+## Privilege Escalation to Kyle
+
 In the current directory there's a file called `manage.py`. This file is automatically created in Django projects and is Django’s command-line utility for administrative tasks. Reading the documentation <a href="https://docs.djangoproject.com/en/4.1/ref/django-admin/#shell">here</a> shows you can interact with the projects databases using the `dbshell` argument.
 
 <img src='Images/dbshell.png'>
@@ -138,6 +145,8 @@ In the current directory there's a file called `manage.py`. This file is automat
 In the `auth_user` table we see a django password hash for kyle. Copying this to a file `hash` and running my alias `j hash`, it cracks as `marcoantonio`. This allows us to `su` to kyle.
 
 <img src='Images/sukyle.png'>
+
+## Privilege Escalation to John
 
 We can see kyle is in the `filter` group.
 
@@ -156,6 +165,8 @@ Next I'll create a file in `/home/kyle` containing the commands to send an email
 now I can ssh in as john.
 
 <img src='Images/johnssh.png'>
+
+## Privilege Escalation to Root
 
 I'll check what groups john is a part of and see what files his groups own
 
