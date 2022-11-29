@@ -157,5 +157,8 @@ now I can ssh in as john.
 
 <img src='Images/johnssh.png'>
 
+I'll check what groups john is a part of and see what files his groups own
+
+<img src='Images/aptupdate.png'>
 
 
