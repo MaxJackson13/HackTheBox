@@ -1,6 +1,18 @@
 # Summary
 Writer was a nice medium box which had a fair few steps to it. The inital foothold required chaining a SQL injection read source code with an SSRF against a development site on localhost 8080. There were three privilege escalations where it was clear early on what you had to do for each but the execution required some googling around, reading `man` pages and some failed attempts.
 
+<details open>
+<summary> </summary>
+
+* [Enumeration](#enumeration)
+* [SQL Injection](#sql-injection)
+* [Shell as www-data](#shell as www-data)
+* [Shell as kyle](#privilege-escalation-to-kyle)
+* [Shell as john](#privilege-escalation-to-john)
+* [Shell as root](#privilege-escalation-to-root)
+ 
+</details>
+
 ## Enumeration
 I'll start with a port scan using my alias `fscan` which launches a default script and version scan against the ports found from a full port scan.
 
@@ -77,6 +89,8 @@ It shows the root of the website is `/var/www/writer.htb` and there's a `.wsgi` 
 There's a comment about an `__init__.py` file which I'll read next. The exact location of the file is a bit ambiguous as `from writer import app` could mean a file `writer.py` containing an `app` object, a parent directory `/writer` containing `app.py` or `writer/__init__.py` containing an `app` object, but trying the path `/var/www/writer.htb/__init__.py` works. This file leaks some credentials:
 
 <img src='Images/__init__.png'>
+
+# Shell as www-data
 
 From `/etc/passwd` I saw the user `kyle`. I'll try the credentials `kyle:ToughPasswordToCrack` against smb.
 
