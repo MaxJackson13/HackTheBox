@@ -167,7 +167,7 @@ we have write access over `/etc/apt/apt.conf.d/` as the `management` group. Furt
 
 I'll set up a netcat listener on port 9001 and wait for the reverse shell to hit which it does after a minute or so
 
-<img src='Images/aptupdate.png'>
+<img src='Images/rootshell.png'>
 
 checking the root crons I see root was running `apt-get update` every 2 minutes 
 
