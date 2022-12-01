@@ -28,6 +28,6 @@ First I'll check the logic behind changing the password. I'll change my password
 
 I'll change the request method to a `GET` and submit the request.
 
-<img src="images/changepwdpget.png">
+<img src="images/changepwdget.png">
 
 We get a 200 OK after a 302 redirect. I'll logout and try logging in with `max:password1`
