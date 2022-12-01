@@ -15,11 +15,11 @@ On the host I have a hello world C program
 
 <img src="images/testcat.png">
 
-It's the current directory is mapped to `/volume` in the container so it's there as well
+The current directory is mapped to `/volume` in the container so it's there as well
 
 <img src="images/volume.png">
 
-From the command line on the host I'll compile the code
+From the command line I'll compile the code
 
 <img src="images/compile.png">
 
