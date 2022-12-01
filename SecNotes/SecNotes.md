@@ -26,7 +26,7 @@ First I'll check the logic behind changing the password. I'll change my password
 
 <img src="images/changepwdpost.png">
 
-I'll change the request method to a GET and submit the request.
+Note that the current password is not included anywhere in the request, and there's no XSRF token generated prior to making the request. I'll send it over to repeater and change the request method to a GET and submit the request.
 
 <img src="images/changepwdget.png">
 
