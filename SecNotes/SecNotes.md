@@ -3,3 +3,13 @@ SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't
 I'll first run a port scan against the box using my alias `fscan`
 
 <img src="images/fscan.png">
+
+We see ports 80,445,8808 are open. Ports 80 and 8808 are running `Microsoft IIS httpd 10.0` though nmap shows are redirect to `login.php`. 
+
+Visiting the website shows a login form with an option to signup
+
+<img src="images/secnoteslogin.png">
+
+<img src="images/signup.png">
+<img src="images/home.png">
+<img src="images/contact.png">
