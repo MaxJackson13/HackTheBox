@@ -10,6 +10,12 @@ Visiting the website shows a login form with an option to signup
 
 <img src="images/secnoteslogin.png">
 
+I'll signup with the credentials `max:password`
+
 <img src="images/signup.png">
+
+Logging in 
 <img src="images/home.png">
+
+There's a contact form where we can send a message to `tyler@secnotes.htb`. If tyler is clicking on links we may be able to perform XSS/XSRF
 <img src="images/contact.png">
