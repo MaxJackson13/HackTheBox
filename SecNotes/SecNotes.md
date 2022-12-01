@@ -14,8 +14,20 @@ I'll signup with the credentials `max:password`
 
 <img src="images/signup.png">
 
-Logging in 
+Logging in presents us with the option to create a new note, change our password, signout or contact someone on the backend of the site. the second and last options present us with some opportunities. Perhaps we could change the password of another user then access their notes, or perform an attack against someone checking the contact messages 
+
 <img src="images/home.png">
 
-There's a contact form where we can send a message to `tyler@secnotes.htb`. If tyler is clicking on links we may be able to perform XSS/XSRF
+The contact form sends a message to `tyler@secnotes.htb`. If tyler is clicking on links we may be able to perform XSS/XSRF
+
 <img src="images/contact.png">
+
+First I'll check the logic behind changing the password. I'll change my password to `password1` and intercept the request in burpsuite
+
+<img src="images/changepwdpost.png">
+
+I'll change the request method to a `GET` and submit the request.
+
+<img src="images/changepwdpget.png">
+
+We get a 200 OK after a 302 redirect. I'll logout and try logging in with `max:password1`
