@@ -26,8 +26,15 @@ First I'll check the logic behind changing the password. I'll change my password
 
 <img src="images/changepwdpost.png">
 
-I'll change the request method to a `GET` and submit the request.
+I'll change the request method to a GET and submit the request.
 
 <img src="images/changepwdget.png">
 
 We get a 200 OK after a 302 redirect. I'll logout and try logging in with `max:password1`
+
+<img src="images/home.png">
+
+Changing the password worked with a GET request. What I could do now is to send tyler the url I submitted to the server to change my password via the contact form, and if he visits it, his password will change provided his browser has cached an authenticated session to the site.
+
+
+
