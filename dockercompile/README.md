@@ -4,9 +4,15 @@ Sometimes in a CTF I land on an ubuntu box and need to compile an exploit. I've 
 
 # Example
 On my host I ran `./start.sh` to create the `dockercompile:latst` container
+
 <img src="images/dockerps.png">
 
+I'll grab the container id
+
 <img src="images/dockerid.png">
+
+On the host I have a C hello world program
+
 <img src="images/testcat.png">
 <img src="images/volume.png">
 <img src="images/compile.png">
