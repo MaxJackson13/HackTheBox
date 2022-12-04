@@ -1,10 +1,10 @@
-SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't as involved as some of the more recent medium boxes. The initial foothold involved getting finding credentials to access a share over SMB which can be done via an XSRF or a second order SQL injection. The share is the webroot of a development site into which we can write a PHP reverse shell. The privilege escalation involved finding credentials in a history file in Windows Subsystem for Linux from which we can psexec into the box as the administrator. I'll also into the artifacts psexec leaves behind.
+SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't as involved as some of the more recent medium boxes. The initial foothold involved getting finding credentials to access a share over SMB which can be done via an XSRF or a second order SQL injection. The share is the webroot of a development site into which we can write a PHP reverse shell. The privilege escalation involved finding credentials in a history file in Windows Subsystem for Linux from which we can psexec into the box as the administrator. I'll also look into the artifacts psexec leaves behind.
 
 I'll first run a port scan against the box using my alias `fscan`
 
 <img src="images/fscan.png">
 
-We see ports 80,445,8808 are open. Ports 80 and 8808 are running `Microsoft IIS httpd 10.0` though nmap shows are redirect to `login.php`. 
+We see ports 80,445,8808 are open. Ports 80 and 8808 are running `Microsoft IIS httpd 10.0` though nmap shows a redirect to `login.php` on port 80.
 
 Visiting the website shows a login form with an option to signup
 
@@ -14,7 +14,7 @@ I'll signup with the credentials `max:password`
 
 <img src="images/signup.png">
 
-Logging in presents us with the option to create a new note, change our password, signout or contact someone on the backend of the site. the second and last options present us with some opportunities. Perhaps we could change the password of another user then access their notes, or perform an attack against someone checking the contact messages 
+Logging in presents us with the option to create a new note, change our password, signout or contact someone on the backend of the site. The second and last options present us with some opportunities. Perhaps we could change the password of another user then access their notes, or perform an attack against someone checking the contact messages, or both!
 
 <img src="images/home.png">
 
@@ -26,7 +26,7 @@ First I'll check the logic behind changing the password. I'll change my password
 
 <img src="images/changepwdpost.png">
 
-Note that the current password is not included anywhere in the request, and there's no XSRF token generated prior to making the request. I'll send it over to repeater and change the request method to a GET and submit the request.
+Note that the current password is not included anywhere in the request, and there's no XSRF token generated prior to making the request. I'll send it over to repeater and change the request method to a `GET` and submit the request.
 
 <img src="images/changepwdget.png">
 
