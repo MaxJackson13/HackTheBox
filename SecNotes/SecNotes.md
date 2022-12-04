@@ -1,6 +1,6 @@
 # Summary
 
-SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't as involved as some of the more recent medium boxes. The initial foothold involved getting finding credentials to access a share over SMB which can be done via an XSRF or a second order SQL injection. The share is the webroot of a development site into which we can write a PHP scripto get RCE. The privilege escalation involved finding credentials in a history file in Windows Subsystem for Linux from which we can psexec into the box as the administrator. I'll also look into the artifacts psexec leaves behind.
+SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't as involved as some of the more recent medium boxes. The initial foothold involved finding credentials to access a share over SMB which can be done via an XSRF or a second order SQL injection. The share is the webroot of a development site into which we can write a PHP script to get RCE. The privilege escalation involved finding credentials in a history file in Windows Subsystem for Linux from which we can psexec into the box as the administrator. I'll also look into the artifacts psexec leaves behind.
 
 <details open>
 <summary></summary>
@@ -19,7 +19,7 @@ I'll first run a port scan against the box using my alias `fscan`
 
 <img src="images/fscan.png">
 
-We see ports 80,445,8808 are open. Ports 80 and 8808 are running `Microsoft IIS httpd 10.0` though nmap shows a redirect to `login.php` on port 80.
+We see ports 80, 445, 8808 are open. Ports 80 and 8808 are running `Microsoft IIS httpd 10.0` though nmap shows a redirect to `login.php` on port 80.
 
 Visiting the website shows a login form with an option to signup
 
