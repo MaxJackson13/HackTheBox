@@ -46,6 +46,8 @@ On my listener I get a connection and I can now login with `tyler:password` and 
 
 <img src="images/reset.png">
 
+We see a note for `new site`. This is likely referring to the site on port 8808. It contains the 
+
 
 
 
