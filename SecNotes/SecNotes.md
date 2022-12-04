@@ -124,7 +124,9 @@ However when the notes are retrieved to be displayed on the home page, the usern
 <img src="images/getnotes.png">
 
 We can see that if we register the username `' or 1='1`, the above query becomes
+
 ```SELECT id, title, note, created_at FROM posts WHERE username='' or 1='1'```
+
 Since mysql interprets `1='1'` as true, `'' or 1='1'` also evaluates to true, so we retrieve the notes for every user.
 
 <img src="images/allnotes.png">
