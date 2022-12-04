@@ -9,7 +9,7 @@ SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't
 * [Cross Site Request Forgery](#xsrf)
 * [Initial Access](#initial-access)
 * [Privilege Escalation](#privilege-escalation)
-* [Second Order SQLI](#second-order-sqli-)
+* [Second Order SQLI](#second-order-sqli)
 
 </details>
 
