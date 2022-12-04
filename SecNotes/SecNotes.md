@@ -9,6 +9,7 @@ SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't
 * [Cross Site Request Forgery](#xsrf)
 * [Initial Access](#initial-access)
 * [Privilege Escalation](#privilege-escalation)
+* [Second Order SQLI](#second-order-sqli-)
 
 </details>
 
@@ -106,6 +107,21 @@ We're root inside the Linux filesystem and find a `.bash_history` inside `/root`
 
 <img src="images/bashhist.png">
 
-With these credentials I could mount `c$` on localhost as admin with `net use \\127.0.0.1\c$ /user:administrator u6!4ZwgwOM#^OBf#Nwnh` or I could use powershell's `Enter-PSSession` or I could use the credentials with imapcket's `psexec` to get a shell. I'll /opt for psexec.
+With these credentials I could mount `c$` on localhost as admin with `net use \\127.0.0.1\c$ /user:administrator u6!4ZwgwOM#^OBf#Nwnh` or I could use powershell's `Enter-PSSession` or I could use the credentials with impacket's `psexec` to get a shell. I'll /opt for psexec.
 
 <img src="images/system32.png">
+
+I get a shell returned as `NT AUTHORITY\SYSTEM`. From here I can read `root.txt` in `c:\users\administrator\desktop`
+
+## Second Order SQLI
+
+An SQLi occurs when user input is used directly in an SQL query in an unsafe way. A second order SQLI is when user input is stored in a database then retireved and used as part of a later query in an unsafe way. Here, the register function uses prepared statements to remove user input from the query itself, as seen below. 
+
+<img src="images/registersqli.png">
+
+However when the notes are retrieved to be displayed on the home page, the username is directly concatenated into a SQL query. Therefore we can register a username which does our bidding when called in the query in `home.php`.
+
+<img src="images/getnotes.png">
+
+
+
