@@ -44,10 +44,9 @@ I'll submit the link `http://10.10.10.97/change_pass.php?password=password2&conf
 
 On my listener I get a connection and I can now login with `tyler:password` and access his notes.
 
-<img src="images/reset.png">
+<img src="images/pwreset.png">
 
-We see a note for `new site`. This is likely referring to the site on port 8808. It contains the 
-
+We see a note for `new site`. This is likely referring to the site on port 8808. It appears to contains credentials for the share `\\secnotes.htb\new-site`. I'll check this with `smbclient`
 
 
 
