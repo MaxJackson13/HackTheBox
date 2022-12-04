@@ -36,7 +36,7 @@ We get a 200 OK after a 302 redirect. I'll logout and try logging in with `max:p
 
 Changing the password worked with a GET request. What I'll do now is to send tyler the URL I submitted to the server to change my password via the contact form, and if he visits it, his password will change provided his browser has cached an authenticated session to the site.
 
-<img src="images/reset.png">
+<img src="images/tyler.png">
 
 I'll submit the link `http://10.10.10.97/change_pass.php?password=password2&confirm_password=password2&submit=submit` in the contact form follwed by `http://10.10.14.31/done` and start a netcat listener on port 80, so if I get a request through for `/done` I'll know Tyler visited the malicious link.
 
@@ -44,7 +44,7 @@ I'll submit the link `http://10.10.10.97/change_pass.php?password=password2&conf
 
 On my listener I get a connection and I can now login with `tyler:password` and access his notes.
 
-<img src="images/tyler.png">
+<img src="images/reset.png">
 
 
 
