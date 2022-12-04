@@ -115,7 +115,7 @@ I get a shell returned as `NT AUTHORITY\SYSTEM`. From here I can read `root.txt`
 
 ## Second Order SQLI
 
-An SQLi occurs when user input is used directly in an SQL query in an unsafe way. A second order SQLI is when user input is stored in a database then retireved and used as part of a later query in an unsafe way. Here, the register function uses prepared statements to remove user input from the query itself, as seen below. 
+An SQLI occurs when user input is used directly in an SQL query in an unsafe way. A second order SQLI is when user input is stored in a database then retrieved and used as part of a later query in an unsafe way. Here, the register function uses prepared statements to remove user input from the query itself, as seen below. 
 
 <img src="images/registersqli.png">
 
