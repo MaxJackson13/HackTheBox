@@ -86,3 +86,6 @@ We're root inside the Linux filesystem and find a `.bash_history` inside `/root`
 
 <img src="images/bashhist.png">
 
+With these credentials I could mount `c$` on localhost as admin with `net use \\127.0.0.1\c$ /user:administrator u6!4ZwgwOM#^OBf#Nwnh` or I could use powershell's `Enter-PSSession` or I could use the credentials with imapcket's `psexec` to get a shell. I'll /opt for psexec.
+
+<img src="images/system32.png">
