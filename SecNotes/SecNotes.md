@@ -74,3 +74,13 @@ followed by a connection on my listener
 
 <img src="images/hit.png">
 
+Checking out `c:\users\tyler\desktop` we find `user.txt` but also an interesting file named `bash.lnk`. Reading the file we can pick out `bash.exe` in `c:\Windows\System32`. This usually indicates Windows Subsystem for Linux is installed. 
+
+<img src="images/bashlnk.png">
+
+I'll play around with `bash` and see what I can find in the Linux filesystem.
+
+<img src="images/root.png">
+
+<img src="images/bashhist.png">
+
