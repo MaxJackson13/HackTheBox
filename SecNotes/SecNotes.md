@@ -82,5 +82,7 @@ I'll play around with `bash` and see what I can find in the Linux filesystem.
 
 <img src="images/root.png">
 
+We're root inside the Linux filesystem and find a `.bash_history` inside `/root`. Reading this file we find some admin credentials used over smb.
+
 <img src="images/bashhist.png">
 
