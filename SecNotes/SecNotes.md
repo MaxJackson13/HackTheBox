@@ -1,4 +1,18 @@
+# Summary
+
 SecNotes was a medium difficulty Windows box. Being an earlier HTB box it wasn't as involved as some of the more recent medium boxes. The initial foothold involved getting finding credentials to access a share over SMB which can be done via an XSRF or a second order SQL injection. The share is the webroot of a development site into which we can write a PHP scripto get RCE. The privilege escalation involved finding credentials in a history file in Windows Subsystem for Linux from which we can psexec into the box as the administrator. I'll also look into the artifacts psexec leaves behind.
+
+<details open>
+<summary></summary>
+  
+* [External Enumeration](#external-enumeration)
+* [Cross Site Request Forgery](#xsrf)
+* [Initial Access](#initial-access)
+* [Privilege Escalation](#privilege-escalation)
+
+</details>
+
+## External Enumeration
 
 I'll first run a port scan against the box using my alias `fscan`
 
@@ -36,6 +50,8 @@ We get a 200 OK after a 302 redirect. I'll logout and try logging in with `max:p
 
 Changing the password worked with a GET request. What I'll do now is to send tyler the URL I submitted to the server to change my password via the contact form, and if he visits it, his password will change provided his browser has cached an authenticated session to the site.
 
+## XSRF
+
 <img src="images/tyler.png">
 
 I'll submit the link `http://10.10.10.97/change_pass.php?password=password2&confirm_password=password2&submit=submit` in the contact form follwed by `http://10.10.14.31/done` and start a netcat listener on port 80, so if I get a request through for `/done` I'll know Tyler visited the malicious link.
@@ -53,6 +69,8 @@ We see a note for `new site`. This is likely referring to the site on port 8808.
 We have write access over the `new-site` share. Visiting the share with `smbclient` shows we're in the webroot of the site on port 8808.
 
 <img src="images/iis.png">
+
+## Initial Access
 
 I'll create `shell.php` containing
 ```
@@ -73,6 +91,8 @@ I get a request to my webserver
 followed by a connection on my listener
 
 <img src="images/hit.png">
+
+## Privilege Escalation
 
 Checking out `c:\users\tyler\desktop` we find `user.txt` but also an interesting file named `bash.lnk`. Reading the file we can pick out `bash.exe` in `c:\Windows\System32`. This usually indicates Windows Subsystem for Linux is installed. 
 
